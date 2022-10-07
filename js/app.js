@@ -9,4 +9,5 @@ const display = new Display(displayValorAnterior, displayValorActual);
 // interaccion con botones de la calculadora
 botonesNumeros.forEach(boton => {
     boton.addEventListener('click', () => display.agregarNumero(boton.innerHTML));
+    
 });
