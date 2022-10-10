@@ -32,5 +32,5 @@ class Display {
         this.displayValorActual.textContent = this.valorActual;
         this.displayValorAnterior.textContent = this.valorAnterior;
     }
-
+    
 }
