@@ -8,6 +8,13 @@ class Display {
         this.tipoOperacion = undefined;
         this.valorActual = '';
         this.valorAnterior = '';
+
+        this.signos = {
+            sumar: '+',
+            restar: '-',
+            multiplicar: 'x',
+            dividir: '%',
+        }
     }
     //metodos
     // la variable dentro del parentesis en una funcion es un argumento
@@ -21,6 +28,13 @@ class Display {
         this.tipoOperacion = undefined;
         this.imprimirValores();
     }
+    computar(tipo) {
+        this.tipoOperacion !== 'igual' && this.calcular();
+        this.tipoOperacion = tipo;
+        this.valorAnterior = this.valorActual || this.valorAnterior;
+        this.valorActual = '';
+        this.imprimirValores();
+    }
     agregarNumero(numero) {
         if(numero === '.' && this.valorActual.includes('.')) return
         this.valorActual = this.valorActual.toString() + numero.toString();
@@ -30,7 +44,15 @@ class Display {
     //imprimir valores en pantalla
     imprimirValores() {
         this.displayValorActual.textContent = this.valorActual;
-        this.displayValorAnterior.textContent = this.valorAnterior;
+        this.displayValorAnterior.textContent = `${this.valorAnterior} ${this.signos[this.tipoOperacion] || ''}`;
+    }
+
+    calcular() {
+        const valorAnterior = parseFloat(this.valorAnterior);
+        const valorActual = parseFloat(this.valorActual);
+
+        if( isNaN(valorAnterior) || isNaN(valorActual) ) return
+        this.valorActual = this.calculador[this.tipoOperacion](valorAnterior, valorActual);
     }
     
 }
